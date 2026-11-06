@@ -12,6 +12,10 @@ npm run build    # outputs the finished site to dist/
 
 Upload the `dist/` folder to any static host (Netlify, Vercel, Cloudflare Pages, or cPanel hosting).
 
+## Client preview
+
+Every push to `main` rebuilds the preview at https://rolandvtonder.github.io/Titan-Plant-Hire-website-demo/ (see `.github/workflows/deploy.yml`). That build lives in a sub-folder, so `src/middleware.ts` adds the folder to every link. The preview is also marked `noindex` so Google only ever indexes the real domain. A normal `npm run build` is not affected.
+
 ## Where to edit
 
 | What | File |

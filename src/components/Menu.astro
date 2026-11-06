@@ -2,7 +2,8 @@
 import {nav, site} from '../data/site';
 import Icon from './Icon.astro';
 
-const path = Astro.url.pathname;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const path = Astro.url.pathname.slice(base.length) || '/';
 const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
 <!--

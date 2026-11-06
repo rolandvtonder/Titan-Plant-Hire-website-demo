@@ -54,7 +54,8 @@ const ld = [business, ...schema];
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex" />}
+    {/* The sub-folder demo build (GitHub Pages) is kept out of Google so it never competes with the real domain. */}
+    {(noindex || import.meta.env.BASE_URL !== '/') && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#0e0e0e" />
     <meta name="geo.region" content="ZA-EC" />
     <meta name="geo.placename" content="Port Elizabeth" />
