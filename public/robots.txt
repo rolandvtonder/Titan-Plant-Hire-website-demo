@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.titanplanthire.co.za/sitemap-index.xml

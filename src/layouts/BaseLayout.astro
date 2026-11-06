@@ -1,0 +1,154 @@
+---
+import {getImage} from 'astro:assets';
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import Logo from '../components/Logo.astro';
+import Menu from '../components/Menu.astro';
+import {photo} from '../data/photos';
+import {areas, site} from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Photo name for the social share card */
+  image?: string;
+  /** Extra JSON-LD objects for this page */
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+const {title, description, image = 'tlb-jcb-3cx-with-tipper', schema = [], noindex = false} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const og = await getImage({src: photo(image), width: 1200, height: 630, fit: 'cover', format: 'jpg'});
+const ogUrl = new URL(og.src, Astro.site).href;
+const origin = new URL('/', Astro.site).href;
+
+/** Site-wide business details for Google (LocalBusiness). */
+const business = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  '@id': `${origin}#business`,
+  name: site.name,
+  description: 'Plant hire (TLB, skid steer, tipper trucks, water tanker, crane truck), sand and stone delivery, plot clearing and rubble removal in Port Elizabeth (Gqeberha).',
+  url: origin,
+  telephone: site.phoneIntl,
+  image: ogUrl,
+  logo: new URL('/favicon.svg', Astro.site).href,
+  priceRange: 'R1100 – R2800+',
+  address: {'@type': 'PostalAddress', addressLocality: site.city, addressRegion: site.region, addressCountry: site.country},
+  geo: {'@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng},
+  areaServed: [site.metro, site.city, site.cityAlt, ...areas].map((name) => ({'@type': 'Place', name})),
+  sameAs: [site.facebook],
+  ...(site.hoursSchema.length ? {openingHours: site.hoursSchema} : {}),
+  ...(site.email ? {email: site.email} : {}),
+};
+const ld = [business, ...schema];
+---
+<!doctype html>
+<html lang="en-ZA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#0e0e0e" />
+    <meta name="geo.region" content="ZA-EC" />
+    <meta name="geo.placename" content="Port Elizabeth" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_ZA" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&display=swap" rel="stylesheet" />
+
+    {ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
+  </head>
+  <body>
+    <a href="#main" class="caps fixed top-3 left-3 z-[70] -translate-y-24 bg-hazard px-4 py-3 text-ink focus:translate-y-0">Skip to content</a>
+
+    <a href="/" class="fixed top-4 left-4 z-[55] md:top-6 md:left-10" aria-label="Titan Plant Hire — home">
+      <Logo class="w-[118px] drop-shadow-[0_4px_18px_rgb(0_0_0/0.45)] md:w-[150px]" title="Titan Plant Hire — home" />
+    </a>
+
+    <button
+      type="button"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="site-menu"
+      class="menu-btn caps fixed top-4 right-4 z-[55] flex min-h-12 items-center gap-4 bg-ink/45 px-6 text-white backdrop-blur-md transition-colors duration-500 hover:bg-ink/70 md:top-7 md:right-8"
+    >
+      <span data-menu-label>Menu</span>
+      <Icon name="plus" class="plus size-4 transition-transform duration-500 ease-silk" />
+    </button>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+    <Menu />
+
+    <!-- Always-there actions, like the reference's "Join the club" box -->
+    <div class="ctas fixed right-4 bottom-4 z-40 flex gap-2 md:right-8 md:bottom-7">
+      <a href={site.phoneHref} class="caps flex min-h-12 items-center gap-2 bg-white px-5 text-ink shadow-lg transition-colors hover:bg-hazard">
+        <Icon name="phone" class="size-4" />
+        <span class="max-sm:sr-only">{site.phone}</span>
+        <span class="sm:hidden">Call</span>
+      </a>
+      <a href="/contact/#quote" class="caps flex min-h-12 items-center gap-2 bg-orange px-6 text-ink shadow-lg transition-colors hover:bg-white">
+        Get a <em class="font-bold normal-case">quote</em>
+      </a>
+    </div>
+
+    <dialog data-lightbox-dialog aria-label="Photo" class="m-auto max-h-[92svh] max-w-[94vw] bg-transparent p-0 backdrop:bg-ink/90">
+      <figure class="relative">
+        <img alt="" class="max-h-[84svh] w-auto max-w-[94vw] object-contain" />
+        <figcaption class="mt-3 text-[15px] text-white/80"></figcaption>
+        <button type="button" data-lightbox-close class="caps fixed top-4 right-4 flex min-h-12 items-center gap-3 bg-white px-6 text-ink hover:bg-orange">
+          Close <Icon name="plus" class="size-4 rotate-45" />
+        </button>
+      </figure>
+    </dialog>
+
+    <div class="grain" aria-hidden="true"></div>
+
+    <script>
+      import '../scripts/main.ts';
+    </script>
+  </body>
+</html>
+
+<style>
+  :global(.menu-open) .menu-btn {
+    background: #fff;
+    color: var(--color-ink);
+  }
+  :global(.menu-open) .menu-btn .plus {
+    transform: rotate(45deg);
+  }
+  .ctas {
+    transition:
+      opacity 0.4s,
+      transform 0.4s var(--ease-silk);
+  }
+  :global(.menu-open) .ctas {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    pointer-events: none;
+  }
+</style>

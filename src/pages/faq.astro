@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import PageHero from '../components/PageHero.astro';
+import {generalFaqs} from '../data/faqs';
+import {machines} from '../data/machines';
+import {materials} from '../data/materials';
+import {services} from '../data/services';
+import {breadcrumbs, faqPage} from '../lib/schema';
+
+const groups = [
+  {id: 'general', title: 'General', faqs: generalFaqs},
+  {id: 'plant-hire', title: 'Plant hire', faqs: machines.flatMap((m) => m.faqs.slice(0, 3))},
+  {id: 'sand-and-stone', title: 'Sand & stone', faqs: materials.flatMap((m) => m.faqs.slice(0, 2))},
+  {id: 'site-clearing', title: 'Site clearing', faqs: services.flatMap((m) => m.faqs.slice(0, 2))},
+];
+const all = groups.flatMap((g) => g.faqs);
+---
+<BaseLayout
+  title="FAQ | Plant Hire, Sand & Stone, Plot Clearing | Titan Plant Hire"
+  description="Answers to common questions about TLB and skid steer hire, tipper trucks, sand and stone delivery prices and plot clearing in Port Elizabeth."
+  image="tlb-jcb-3cx-front-loader"
+  schema={[breadcrumbs(Astro.site!, [{label: 'FAQ', href: '/faq/'}]), faqPage(all)]}
+>
+  <PageHero
+    eyebrow="Frequently asked"
+    lines={[{t: 'Good'}, {t: 'questions', i: true}]}
+    intro="Quick answers about hiring machines, ordering sand and stone and clearing sites with Titan. Can’t find yours? Call or WhatsApp 072 244 1916."
+    image="tlb-jcb-3cx-front-loader"
+    crumbs={[{label: 'FAQ', href: '/faq/'}]}
+  />
+
+  {groups.map((g, i) => (
+    <section id={g.id} class:list={['on-paper text-ink', i % 2 ? 'bg-concrete' : 'bg-paper']}>
+      <div class="mx-auto grid max-w-[1680px] gap-12 px-5 py-20 md:px-14 md:py-24 lg:grid-cols-[1fr_2fr]">
+        <h2 class="display text-[clamp(44px,5.5vw,88px)]" data-reveal><span class="block">{g.title}</span><span class="it block">FAQ</span></h2>
+        <Faq faqs={g.faqs} />
+      </div>
+    </section>
+  ))}
+
+  <CtaBand title="Still" italic="wondering?" />
+</BaseLayout>

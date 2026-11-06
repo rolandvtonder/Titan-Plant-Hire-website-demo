@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PageHero from '../components/PageHero.astro';
+import PhotoGrid from '../components/PhotoGrid.astro';
+import {breadcrumbs} from '../lib/schema';
+
+const groups = [
+  {id: 'tlb', t: ['TLBs', 'at work'], names: ['tlb-jcb-3cx-front-loader', 'tlb-jcb-3cx-yard', 'tlb-jcb-3cx-with-tipper', 'tlb-loading-tipper-truck', 'tlb-fleet-graphic', 'tlb-and-skid-steer', 'tlb-rubble-removal']},
+  {id: 'skid-steer', t: ['Skid', 'steer'], names: ['skid-steer-jcb-135-side', 'skid-steer-jcb-135-rear', 'skid-steer-jcb-135-operator', 'skid-steer-jcb-135-yard', 'skid-steer-graphic', 'skid-steer-hire-price-promo', 'pool-area-rubble-before-after']},
+  {id: 'trucks', t: ['Trucks', '& tankers'], names: ['tipper-truck-earthworks', 'tipper-truck-sand-delivery', 'tipper-truck-stone-delivery', 'tipper-truck-stone-tipping', 'excavator-loading-tipper-truck', 'water-tanker-side', 'water-tanker-side-2', 'water-tanker-rear-pump', 'water-tanker-front', 'flatbed-truck-timber-load', 'flatbed-truck', 'tipper-truck-hazard-graphic', 'tipper-truck-sand-stone-grit-promo']},
+  {id: 'crane', t: ['Crane truck', '& containers'], names: ['crane-truck-container-lift', 'crane-truck-container-offload', 'crane-truck-container-bakkie']},
+  {id: 'clearing', t: ['Plots', 'cleared'], names: ['plot-clearing-after-house', 'plot-clearing-before-after-1', 'plot-clearing-before-after-2', 'plot-clearing-before-after-3', 'plot-clearing-before-bush', 'plot-clearing-promo', 'site-clearing-before', 'site-clearing-after']},
+  {id: 'roads', t: ['Road', 'clean-ups'], names: ['road-spill-cleanup-4', 'road-spill-cleanup-1', 'road-spill-cleanup-2', 'road-spill-cleanup-3']},
+  {id: 'materials', t: ['Sand', '& stone'], names: ['building-sand-7-ton-promo', 'crusher-stone-7-ton-promo', 'skid-tlb-tipper-promo', 'services-promo', 'tlb-for-hire-promo-1', 'tlb-fleet-christmas']},
+];
+---
+<BaseLayout
+  title="Gallery | Plant Hire & Site Clearing Photos | Titan Plant Hire"
+  description="Photos of Titan Plant Hire at work in Port Elizabeth: JCB TLBs, skid steer, tipper trucks, water tanker, crane truck, plot clearing before and afters and road clean-ups."
+  image="tlb-fleet-graphic"
+  schema={[breadcrumbs(Astro.site!, [{label: 'Gallery', href: '/gallery/'}])]}
+>
+  <PageHero
+    eyebrow="Real jobs, real machines"
+    lines={[{t: 'Gallery'}, {t: 'on the job', i: true}]}
+    intro="Every photo here is Titan’s own — our machines and trucks on sites, plots and roads around Port Elizabeth. Tap any photo to see it larger."
+    image="tlb-fleet-christmas"
+    crumbs={[{label: 'Gallery', href: '/gallery/'}]}
+  />
+
+  <nav aria-label="Gallery sections" class="sticky top-0 z-30 border-b border-white/10 bg-ink/90 backdrop-blur">
+    <ul class="mx-auto flex max-w-[1680px] gap-2 overflow-x-auto px-5 py-3 md:px-14">
+      {groups.map((g) => (
+        <li class="shrink-0"><a href={`#${g.id}`} class="caps inline-flex min-h-11 items-center border border-white/20 px-4 text-white/85 hover:border-orange hover:text-orange">{g.t.join(' ')}</a></li>
+      ))}
+    </ul>
+  </nav>
+
+  <section class="on-paper bg-concrete text-ink">
+    <div class="mx-auto grid max-w-[1680px] items-center gap-12 px-5 py-20 md:px-14 lg:grid-cols-[1fr_1.4fr]">
+      <h2 class="display text-[clamp(44px,5.5vw,90px)]" data-reveal><span class="block">Slide to</span><span class="it block">compare</span></h2>
+      <BeforeAfter before="site-clearing-before" after="site-clearing-after" label="Slide to compare the verge before and after clearing" />
+    </div>
+  </section>
+
+  {groups.map((g) => (
+    <section id={g.id} class="scroll-mt-20 bg-ink py-16 md:py-24">
+      <div class="mx-auto max-w-[1680px] px-5 md:px-14">
+        <h2 class="display mb-8 text-[clamp(44px,5.5vw,90px)]" data-reveal><span class="block">{g.t[0]}</span><span class="it block">{g.t[1]}</span></h2>
+        <PhotoGrid names={g.names} />
+      </div>
+    </section>
+  ))}
+
+  <CtaBand title="Like what" italic="you see?" />
+</BaseLayout>

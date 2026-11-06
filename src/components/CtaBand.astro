@@ -1,0 +1,33 @@
+---
+import {site} from '../data/site';
+import Icon from './Icon.astro';
+import Img from './Img.astro';
+interface Props {
+  image?: string;
+  title?: string;
+  italic?: string;
+}
+const {image = 'tlb-and-skid-steer', title = 'Need a machine', italic = 'on site?'} = Astro.props;
+---
+<section class="relative overflow-hidden bg-orange text-ink">
+  <div class="absolute inset-y-0 right-0 hidden w-1/2 overflow-hidden lg:block">
+    <Img name={image} alt="" sizes="50vw" parallax={0.1} class="h-full w-full object-cover mix-blend-multiply grayscale" />
+  </div>
+  <div class="relative mx-auto max-w-[1680px] px-5 py-20 md:px-14 md:py-28">
+    <h2 class="display text-[clamp(52px,8vw,128px)]" data-reveal>
+      <span class="block">{title}</span>
+      <span class="block italic">{italic}</span>
+    </h2>
+    <p class="mt-6 max-w-lg text-[19px] text-ink/85" data-reveal style="--d:1">
+      Call or WhatsApp Titan Plant Hire with your address and what needs doing. We’ll tell you which machine, how long and the price.
+    </p>
+    <div class="mt-10 flex flex-wrap gap-3" data-reveal style="--d:2">
+      <a href={site.phoneHref} class="display inline-flex min-h-16 items-center gap-3 bg-ink px-7 text-[34px] text-white hover:bg-white hover:text-ink">
+        <Icon name="phone" class="size-6 text-orange" /> {site.phone}
+      </a>
+      <a href={site.whatsappHref} target="_blank" rel="noopener" class="caps inline-flex min-h-16 items-center gap-2 border-2 border-ink px-7 hover:bg-ink hover:text-white">
+        <Icon name="whatsapp" class="size-5" /> WhatsApp us
+      </a>
+    </div>
+  </div>
+</section>

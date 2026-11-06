@@ -1,0 +1,55 @@
+---
+import type {Line} from '../data/types';
+import {site} from '../data/site';
+import Headline from './Headline.astro';
+import Icon from './Icon.astro';
+import Img from './Img.astro';
+
+/**
+ * Inner-page hero: the photo drifts slowly, and as you scroll on it blurs,
+ * dims and pulls back (driven by [data-hero] in main.ts).
+ */
+interface Props {
+  eyebrow: string;
+  lines: Line[];
+  intro: string;
+  image: string;
+  crumbs?: {label: string; href: string}[];
+  full?: boolean;
+}
+const {eyebrow, lines, intro, image, crumbs = [], full = false} = Astro.props;
+---
+<section data-hero class:list={['relative overflow-hidden bg-ink', full ? 'h-svh min-h-[640px]' : 'min-h-[88svh]']}>
+  <div data-hero-stage class="absolute inset-0 origin-center will-change-transform">
+    <div class="absolute inset-0 overflow-hidden">
+      <Img name={image} eager class="drift h-full w-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,rgb(14_14_14/0.85),rgb(14_14_14/0.4)_55%,rgb(14_14_14/0.2))]"></div>
+    <div class="absolute inset-x-0 bottom-0 h-2/3 bg-[linear-gradient(0deg,rgb(14_14_14/0.9),transparent)]"></div>
+  </div>
+
+  <div class:list={['relative mx-auto flex max-w-[1680px] flex-col justify-end px-5 pt-32 pb-24 md:px-14 md:pb-20', full ? 'h-svh min-h-[640px]' : 'min-h-[88svh]']}>
+    {crumbs.length > 0 && (
+      <nav aria-label="Breadcrumb" class="mb-6">
+        <ol class="caps flex flex-wrap items-center gap-x-2 text-white/75">
+          <li><a href="/" class="hover:text-orange">Home</a></li>
+          {crumbs.map((c, i) => (
+            <li class="flex items-center gap-2">
+              <span aria-hidden="true" class="text-orange">/</span>
+              {i === crumbs.length - 1 ? <span aria-current="page" class="text-white">{c.label}</span> : <a href={c.href} class="hover:text-orange">{c.label}</a>}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
+    <p class="caps mb-5 flex items-center gap-3 text-orange"><span class="h-[3px] w-10 -skew-x-[20deg] bg-orange"></span>{eyebrow}</p>
+    <Headline as="h1" lines={lines} class="text-[clamp(52px,8.6vw,150px)] text-white drop-shadow-[0_4px_30px_rgb(0_0_0/0.35)]" />
+    <div class="mt-8 flex flex-col gap-7">
+      <p class="max-w-[580px] text-[18px] leading-relaxed text-white/90 md:text-[19px]">{intro}</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/contact/#quote" class="caps inline-flex min-h-12 items-center gap-2 bg-orange px-6 text-ink hover:bg-white">Request a quote <Icon name="arrow" class="size-4" /></a>
+        <a href={site.whatsappHref} target="_blank" rel="noopener" class="caps inline-flex min-h-12 items-center gap-2 border border-white/40 bg-ink/30 px-6 text-white backdrop-blur hover:border-orange hover:text-orange"><Icon name="whatsapp" class="size-4" /> WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>

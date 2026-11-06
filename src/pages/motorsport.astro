@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import Img from '../components/Img.astro';
+import PageHero from '../components/PageHero.astro';
+import {site} from '../data/site';
+import {breadcrumbs} from '../lib/schema';
+---
+<BaseLayout
+  title="Titan Motorsport | Titan Plant Hire Race Car | Port Elizabeth"
+  description="Meet the Titan Plant Hire race car — our number 1 car carrying Titan colours on the dirt oval. Local business, local motorsport. Follow us on Facebook."
+  image="titan-race-car"
+  schema={[breadcrumbs(Astro.site!, [{label: 'Motorsport', href: '/motorsport/'}])]}
+>
+  <PageHero
+    eyebrow="Titan motorsport"
+    lines={[{t: 'Built'}, {t: 'to race', i: true}]}
+    intro="When the machines are parked for the weekend, the Titan Plant Hire car takes to the dirt oval — number 1 on the door, Titan on the flanks and the pack behind it."
+    image="titan-race-car"
+    crumbs={[{label: 'Motorsport', href: '/motorsport/'}]}
+    full
+  />
+
+  <section class="on-paper bg-paper text-ink">
+    <div class="mx-auto grid max-w-[1680px] gap-14 px-5 py-20 md:px-14 md:py-28 lg:grid-cols-[minmax(0,760px)_1fr]">
+      <article class="prose-titan">
+        <p class="text-[21px] leading-relaxed text-ink/85">
+          Speedway is all about power, grip and nerve on loose dirt — which sounds a lot like a day on site. That’s why Titan
+          Plant Hire is proud to put its name on the number 1 car.
+        </p>
+        <h2>Titan on the track</h2>
+        <p>
+          The car runs in Titan’s colours — black, white and a flash of hi-vis — with the Titan Plant Hire name down both
+          sides and the South African flag on the number. It races on dirt ovals, wheel to wheel with some of the best
+          machinery in the field.
+        </p>
+        <h2>Why we support local motorsport</h2>
+        <p>
+          Grassroots motorsport runs on local businesses, volunteers and families who give up their weekends. Supporting the sport
+          is our way of backing the community that backs us — the same Eastern Cape people who hire our machines, order our sand and
+          stone and call us when a plot needs clearing.
+        </p>
+        <h2>Follow the season</h2>
+        <p>
+          Race-day photos, results and news go up on the Titan Plant Hire Facebook page. Come and say hello in the pits — and if you
+          need a TLB on Monday morning, we’ll be back in the yard.
+        </p>
+        <p>
+          <a href={site.facebook} target="_blank" rel="noopener">Follow Titan Plant Hire on Facebook</a>
+        </p>
+      </article>
+      <aside class="lg:sticky lg:top-28 lg:self-start">
+        <div class="relative aspect-[4/5] overflow-hidden">
+          <Img name="titan-race-car" sizes="(min-width: 1024px) 40vw, 100vw" class="h-full w-full object-cover object-[45%_50%]" />
+        </div>
+        <a href={site.facebook} target="_blank" rel="noopener" class="caps mt-3 flex min-h-14 items-center justify-center gap-2 bg-ink text-white hover:bg-rust">
+          <Icon name="facebook" class="size-5" /> Race news on Facebook
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand title="Back on site" italic="Monday." image="tlb-fleet-graphic" />
+</BaseLayout>

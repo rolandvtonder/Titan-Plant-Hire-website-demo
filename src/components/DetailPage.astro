@@ -1,0 +1,133 @@
+---
+/**
+ * Shared template for every machine, material and clearing-service page:
+ * hero → key facts → long-form copy with a sticky quote card → photos →
+ * FAQs → related services → call to action.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {breadcrumbs, faqPage, service} from '../lib/schema';
+import {machines} from '../data/machines';
+import {materials} from '../data/materials';
+import {services} from '../data/services';
+import {site} from '../data/site';
+import type {Entry} from '../data/types';
+import CtaBand from './CtaBand.astro';
+import EntryCard from './EntryCard.astro';
+import Faq from './Faq.astro';
+import Icon from './Icon.astro';
+import PageHero from './PageHero.astro';
+import PhotoGrid from './PhotoGrid.astro';
+
+interface Props {
+  entry: Entry;
+  section: {label: string; href: string};
+  category: string;
+}
+const {entry: e, section, category} = Astro.props;
+const path = `${section.href}${e.slug}/`;
+const crumbs = [section, {label: e.name, href: path}];
+
+const all = [
+  ...machines.map((m) => ({e: m, href: `/plant-hire/${m.slug}/`})),
+  ...materials.map((m) => ({e: m, href: `/sand-and-stone/${m.slug}/`})),
+  ...services.map((m) => ({e: m, href: `/site-clearing/${m.slug}/`})),
+];
+const related = e.related.map((href) => all.find((a) => a.href === href)).filter((a) => !!a);
+const siteUrl = Astro.site!;
+---
+<BaseLayout
+  title={e.title}
+  description={e.description}
+  image={e.hero}
+  schema={[service(siteUrl, e, path, category), breadcrumbs(siteUrl, crumbs), faqPage(e.faqs)]}
+>
+  <PageHero eyebrow={e.eyebrow} lines={e.headline} intro={e.intro} image={e.hero} crumbs={crumbs} />
+
+  <!-- Key facts -->
+  <section class="border-t border-white/10 bg-asphalt">
+    <dl class="mx-auto grid max-w-[1680px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
+      {e.facts.map(([k, v], i) => (
+        <div class="border-b border-white/10 px-5 py-7 sm:border-r md:px-8" data-reveal style={`--d:${i}`}>
+          <dt class="caps text-orange">{k}</dt>
+          <dd class="mt-2 text-[17px] font-medium text-white">{v}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- Long-form copy + sticky quote card -->
+  <section class="on-paper bg-paper text-ink">
+    <div class="mx-auto grid max-w-[1680px] gap-14 px-5 py-20 md:px-14 md:py-28 lg:grid-cols-[minmax(0,1fr)_400px]">
+      <article class="prose-titan max-w-[760px]">
+        <p class="text-[21px] leading-relaxed text-ink/85">{e.intro}</p>
+        {e.body.map((s) => (
+          <>
+            <h2>{s.h}</h2>
+            {s.p?.map((p) => <p>{p}</p>)}
+            {s.list && <ul>{s.list.map((li) => <li>{li}</li>)}</ul>}
+          </>
+        ))}
+        <h2>Book {e.name.toLowerCase()} in {site.city}</h2>
+        <p>
+          Call <a href={site.phoneHref}>{site.phone}</a> or send a WhatsApp with your address, what needs doing and when. We
+          work across {site.metro} — see our <a href="/service-areas/">service areas</a> — and we’ll give you a clear quote before
+          anything arrives.
+        </p>
+      </article>
+
+      <aside class="lg:sticky lg:top-28 lg:self-start">
+        <div class="bg-ink p-8 text-white">
+          <p class="caps text-orange">{e.price ? `From R${e.price.from} ${e.price.unit}` : 'Free quote'}</p>
+          <h2 class="display mt-3 text-[44px]">Book <span class="it">{e.name.toLowerCase()}</span></h2>
+          <p class="mt-4 text-white/70">Tell us where and when — we’ll confirm availability and the price.</p>
+          <div class="mt-6 grid gap-3">
+            <a href={site.phoneHref} class="caps flex min-h-12 items-center justify-center gap-2 bg-orange text-ink hover:bg-white"><Icon name="phone" class="size-4" /> Call {site.phone}</a>
+            <a href={site.whatsappHref} target="_blank" rel="noopener" class="caps flex min-h-12 items-center justify-center gap-2 border border-white/30 hover:border-orange hover:text-orange"><Icon name="whatsapp" class="size-4" /> WhatsApp</a>
+            <a href="/contact/#quote" class="caps flex min-h-12 items-center justify-center gap-2 border border-white/30 hover:border-orange hover:text-orange"><Icon name="quote" class="size-4" /> Quote form</a>
+          </div>
+        </div>
+        <div class="mt-3 bg-white p-8">
+          <h2 class="caps text-rust">Good for</h2>
+          <ul class="mt-4 space-y-3">
+            {e.uses.map((u) => (
+              <li class="flex gap-3 text-[16px] text-ink/85"><Icon name="check" class="mt-0.5 size-5 shrink-0 text-rust" />{u}</li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Photos -->
+  <section class="bg-ink py-20 md:py-28">
+    <div class="mx-auto max-w-[1680px] px-5 md:px-14">
+      <div class="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <h2 class="display text-[clamp(44px,6vw,96px)]" data-reveal><span class="block">On the job</span><span class="it block">around the Bay</span></h2>
+        <a href="/gallery/" class="caps inline-flex items-center gap-2 text-white/80 hover:text-orange" data-reveal>Full gallery <Icon name="arrow" class="size-4" /></a>
+      </div>
+      <PhotoGrid names={[e.hero, ...e.gallery].slice(0, 7)} />
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="on-paper bg-concrete text-ink">
+    <div class="mx-auto grid max-w-[1680px] gap-12 px-5 py-20 md:px-14 md:py-28 lg:grid-cols-[1fr_2fr]">
+      <h2 class="display text-[clamp(44px,5.5vw,88px)]" data-reveal><span class="block">{e.name}</span><span class="it block">questions</span></h2>
+      <Faq faqs={e.faqs} />
+    </div>
+  </section>
+
+  <!-- Related -->
+  {related.length > 0 && (
+    <section class="bg-ink py-20 md:py-28">
+      <div class="mx-auto max-w-[1680px] px-5 md:px-14">
+        <h2 class="display mb-10 text-[clamp(40px,5vw,80px)]" data-reveal><span class="block">Often booked</span><span class="it block">together</span></h2>
+        <div class="grid gap-[3px] md:grid-cols-3">
+          {related.map((r, i) => <EntryCard entry={r!.e} href={r!.href} index={i} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaBand />
+</BaseLayout>

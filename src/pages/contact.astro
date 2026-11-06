@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import {site} from '../data/site';
+import {breadcrumbs} from '../lib/schema';
+
+const contactPage = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Titan Plant Hire',
+  url: new URL('/contact/', Astro.site).href,
+  mainEntity: {'@id': `${new URL('/', Astro.site).href}#business`},
+};
+---
+<BaseLayout
+  title="Contact Titan Plant Hire | Quotes | 072 244 1916 | Port Elizabeth"
+  description="Get a quote from Titan Plant Hire in Port Elizabeth. Call or WhatsApp 072 244 1916 for TLB, skid steer and tipper hire, sand and stone delivery or plot clearing."
+  image="tlb-jcb-3cx-with-tipper"
+  schema={[breadcrumbs(Astro.site!, [{label: 'Contact', href: '/contact/'}]), contactPage]}
+>
+  <PageHero
+    eyebrow="Contact & quotes"
+    lines={[{t: 'Let’s get'}, {t: 'moving', i: true}]}
+    intro="The fastest way to a quote is a call or a WhatsApp with your address, the job and a few photos. Prefer a form? Fill in the one below and it goes straight to our WhatsApp."
+    image="tlb-and-skid-steer"
+    crumbs={[{label: 'Contact', href: '/contact/'}]}
+  />
+
+  <section class="bg-asphalt">
+    <div class="mx-auto grid max-w-[1680px] gap-[3px] md:grid-cols-3">
+      <a href={site.phoneHref} class="group bg-ink p-8 md:p-10" data-reveal>
+        <Icon name="phone" class="size-8 text-orange" />
+        <p class="caps mt-6 text-white/60">Call</p>
+        <p class="display mt-2 text-[44px] group-hover:text-orange">{site.phone}</p>
+      </a>
+      <a href={site.whatsappHref} target="_blank" rel="noopener" class="group bg-ink p-8 md:p-10" data-reveal style="--d:1">
+        <Icon name="whatsapp" class="size-8 text-orange" />
+        <p class="caps mt-6 text-white/60">WhatsApp</p>
+        <p class="display mt-2 text-[44px] group-hover:text-orange">Message us</p>
+      </a>
+      <a href={site.facebook} target="_blank" rel="noopener" class="group bg-ink p-8 md:p-10" data-reveal style="--d:2">
+        <Icon name="facebook" class="size-8 text-orange" />
+        <p class="caps mt-6 text-white/60">Facebook</p>
+        <p class="display mt-2 text-[44px] group-hover:text-orange">Titan Plant Hire</p>
+      </a>
+    </div>
+  </section>
+
+  <section id="quote" class="on-paper scroll-mt-10 bg-paper text-ink">
+    <div class="mx-auto grid max-w-[1680px] gap-14 px-5 py-20 md:px-14 md:py-28 lg:grid-cols-[1fr_minmax(0,820px)]">
+      <div>
+        <h2 class="display text-[clamp(48px,6vw,100px)]" data-reveal><span class="block">Request</span><span class="it block">a quote</span></h2>
+        <div class="mt-8 space-y-6 text-[17px] text-ink/80" data-reveal style="--d:1">
+          <p class="flex gap-3"><Icon name="pin" class="mt-1 size-5 shrink-0 text-rust" /><span><strong class="text-ink">Based in {site.city} ({site.cityAlt})</strong><br />Serving all of {site.metro}. <a href="/service-areas/" class="font-semibold text-rust underline underline-offset-4">Service areas</a></span></p>
+          <p class="flex gap-3"><Icon name="clock" class="mt-1 size-5 shrink-0 text-rust" />
+            <span>
+              {site.hours.length ? (
+                site.hours.map((h) => <span class="block"><strong class="text-ink">{h.days}:</strong> {h.time}</span>)
+              ) : (
+                <span><strong class="text-ink">Hours:</strong> call or WhatsApp — we’ll confirm availability for your date.</span>
+              )}
+            </span>
+          </p>
+          {site.email && <p class="flex gap-3"><Icon name="quote" class="mt-1 size-5 shrink-0 text-rust" /><a href={`mailto:${site.email}`} class="font-semibold underline">{site.email}</a></p>}
+        </div>
+      </div>
+      <div class="bg-white p-6 md:p-10" data-reveal>
+        <QuoteForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

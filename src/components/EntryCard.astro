@@ -1,0 +1,28 @@
+---
+import type {Entry} from '../data/types';
+import Icon from './Icon.astro';
+import Img from './Img.astro';
+interface Props {
+  entry: Entry;
+  href: string;
+  index?: number;
+  dark?: boolean;
+}
+const {entry, href, index = 0, dark = true} = Astro.props;
+---
+<a href={href} class:list={['group relative flex flex-col overflow-hidden', dark ? 'bg-asphalt text-white' : 'bg-white text-ink']} data-reveal style={`--d:${index % 3}`}>
+  <div class="relative aspect-[4/3] overflow-hidden">
+    <Img name={entry.hero} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" class="h-full w-full object-cover transition-transform duration-700 ease-silk group-hover:scale-105" />
+    {entry.price && (
+      <span class="caps absolute top-4 left-4 bg-orange px-3 py-1.5 text-ink">From R{entry.price.from}</span>
+    )}
+  </div>
+  <div class="flex flex-1 flex-col p-6 md:p-7">
+    <p class:list={['caps', dark ? 'text-orange' : 'text-rust']}>{entry.eyebrow}</p>
+    <h3 class="display mt-3 text-[38px]">{entry.name}</h3>
+    <p class:list={['mt-3 flex-1 text-[16px]', dark ? 'text-white/70' : 'text-ink/70']}>{entry.card}</p>
+    <span class="caps mt-6 inline-flex items-center gap-2">
+      View details <Icon name="arrow" class="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+    </span>
+  </div>
+</a>

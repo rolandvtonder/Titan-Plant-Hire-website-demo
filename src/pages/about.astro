@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import Img from '../components/Img.astro';
+import PageHero from '../components/PageHero.astro';
+import {site} from '../data/site';
+import {breadcrumbs} from '../lib/schema';
+
+const fleet = [
+  ['JCB 3CX TLBs', '/plant-hire/tlb-hire/'],
+  ['JCB 135 skid steer', '/plant-hire/skid-steer-hire/'],
+  ['Mercedes-Benz tipper trucks', '/plant-hire/tipper-truck-hire/'],
+  ['Water tanker with pump', '/plant-hire/water-tanker-hire/'],
+  ['Crane truck', '/plant-hire/crane-truck-hire/'],
+  ['Flatbed truck', '/plant-hire/flatbed-truck-hire/'],
+];
+const steps = [
+  {h: 'Tell us the job', p: 'Call or WhatsApp with the address, what needs doing and when. Photos help.'},
+  {h: 'Get a clear quote', p: 'We recommend the right machine or combination and give you a straight price.'},
+  {h: 'We arrive ready', p: 'Machines and trucks turn up on the agreed day, fuelled and ready to work.'},
+  {h: 'Job done, site left tidy', p: 'Dug, loaded, carted, delivered or cleared — and the site left neat.'},
+];
+---
+<BaseLayout
+  title="About Titan Plant Hire | Port Elizabeth Plant Hire Company"
+  description="Titan Plant Hire is a Port Elizabeth (Gqeberha) plant hire company with its own JCB TLBs, skid steer, tipper trucks, water tanker and crane truck. Meet the team behind the orange."
+  image="tlb-fleet-graphic"
+  schema={[breadcrumbs(Astro.site!, [{label: 'About', href: '/about/'}])]}
+>
+  <PageHero
+    eyebrow="About us"
+    lines={[{t: 'Local muscle'}, {t: 'for the Bay', i: true}]}
+    intro="Titan Plant Hire is a Port Elizabeth company that owns and runs its own machines and trucks — so when you book Titan, you get Titan."
+    image="tlb-jcb-3cx-yard"
+    crumbs={[{label: 'About', href: '/about/'}]}
+  />
+
+  <section class="on-paper bg-paper text-ink">
+    <div class="mx-auto grid max-w-[1680px] gap-14 px-5 py-20 md:px-14 md:py-28 lg:grid-cols-[minmax(0,760px)_1fr]">
+      <article class="prose-titan">
+        <p class="text-[21px] leading-relaxed text-ink/85">
+          Titan exists to give {site.city} a plant hire company that turns up when it says it will, quotes honestly and
+          finishes the job properly.
+        </p>
+        <h2>Who we are</h2>
+        <p>
+          Titan Plant Hire is based in {site.city} ({site.cityAlt}) in the {site.region}. We supply TLBs, a skid steer, tipper
+          trucks, a water tanker, a crane truck and a flatbed truck, and we deliver building sand, crusher stone and grit across
+          {site.metro}. Our customers are homeowners, builders, landscapers, developers, estates and businesses — anyone who needs
+          ground dug, material moved or a site cleared.
+        </p>
+        <h2>Why owning the fleet matters</h2>
+        <p>
+          Many hire companies broker other people’s machines. Titan owns its fleet and keeps it in our own yard. That means we know
+          every machine, we maintain it ourselves, and we can put a TLB and a tipper on the same job without waiting on anyone else.
+          It’s the reason we can dig, load and cart in a single visit.
+        </p>
+        <h2>What we stand for</h2>
+        <ul>
+          <li><strong>On time.</strong> We confirm the day and we turn up.</li>
+          <li><strong>Straight pricing.</strong> Published “from” prices and a clear quote before we start.</li>
+          <li><strong>Right machine.</strong> We’ll tell you if a smaller, cheaper option will do the job.</li>
+          <li><strong>Tidy sites.</strong> We leave your property neat — not just “finished”.</li>
+          <li><strong>Safety first.</strong> Services located, bystanders clear, hazards discussed before we start.</li>
+        </ul>
+        <h2>Part of the community</h2>
+        <p>
+          You’ll see the Titan orange on plots and driveways across the Bay — and on the dirt oval, where the
+          <a href="/motorsport/">Titan Plant Hire race car</a> flies our colours on race days.
+        </p>
+      </article>
+      <aside class="space-y-3 lg:sticky lg:top-28 lg:self-start">
+        <div class="relative aspect-[4/3] overflow-hidden">
+          <Img name="tlb-fleet-christmas" sizes="(min-width: 1024px) 40vw, 100vw" class="h-full w-full object-cover" />
+        </div>
+        <div class="bg-ink p-8 text-white">
+          <h2 class="caps text-orange">The Titan fleet</h2>
+          <ul class="mt-4 divide-y divide-white/10">
+            {fleet.map(([l, h]) => (
+              <li><a href={h} class="flex min-h-12 items-center justify-between gap-3 py-2 hover:text-orange">{l}<Icon name="arrow" class="size-4 text-orange" /></a></li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="bg-ink py-20 md:py-28">
+    <div class="mx-auto max-w-[1680px] px-5 md:px-14">
+      <h2 class="display text-[clamp(48px,6.5vw,110px)]" data-reveal><span class="block">How we</span><span class="it block">work</span></h2>
+      <ol class="mt-14 grid gap-[3px] md:grid-cols-2 xl:grid-cols-4">
+        {steps.map((s, i) => (
+          <li class="bg-asphalt p-8 md:p-10" data-reveal style={`--d:${i}`}>
+            <span class="display text-[64px] text-orange">0{i + 1}</span>
+            <h3 class="mt-4 text-[22px] font-bold">{s.h}</h3>
+            <p class="mt-3 text-white/70">{s.p}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <CtaBand title="Let’s get" italic="to work." />
+</BaseLayout>

@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import {machines} from '../data/machines';
+import {materials} from '../data/materials';
+import {services} from '../data/services';
+import {areas, site} from '../data/site';
+import {breadcrumbs} from '../lib/schema';
+
+const links = [
+  ...machines.map((m) => ({label: m.name, href: `/plant-hire/${m.slug}/`})),
+  ...materials.map((m) => ({label: `${m.name} delivery`, href: `/sand-and-stone/${m.slug}/`})),
+  ...services.map((m) => ({label: m.name, href: `/site-clearing/${m.slug}/`})),
+];
+---
+<BaseLayout
+  title="Service Areas | Plant Hire Across Nelson Mandela Bay | Titan"
+  description="Titan Plant Hire works across Port Elizabeth (Gqeberha) and Nelson Mandela Bay — Walmer, Summerstrand, Newton Park, Lorraine, Kragga Kamma, Bluewater Bay, Despatch, Kariega and more."
+  image="tipper-truck-stone-tipping"
+  schema={[breadcrumbs(Astro.site!, [{label: 'Service areas', href: '/service-areas/'}])]}
+>
+  <PageHero
+    eyebrow="Where we work"
+    lines={[{t: 'Across'}, {t: 'the Bay', i: true}]}
+    intro={`Titan Plant Hire is based in ${site.city} and works throughout ${site.metro} — from the beachfront suburbs to Kariega, Despatch and the farms on the edge of town.`}
+    image="tipper-truck-stone-tipping"
+    crumbs={[{label: 'Service areas', href: '/service-areas/'}]}
+  />
+
+  <section class="on-paper bg-paper text-ink">
+    <div class="mx-auto grid max-w-[1680px] gap-14 px-5 py-20 md:px-14 md:py-28 lg:grid-cols-[minmax(0,760px)_1fr]">
+      <article class="prose-titan">
+        <h2>Plant hire across Port Elizabeth and Nelson Mandela Bay</h2>
+        <p>
+          Our TLBs, skid steer, tipper trucks, water tanker, crane truck and flatbed truck work every day across {site.city}
+          ({site.cityAlt}). Wheeled machines like our JCB TLBs can travel between nearby suburbs on the road, which keeps
+          mobilisation quick and affordable for jobs anywhere in the metro.
+        </p>
+        <p>
+          Sand, stone and grit are delivered in 7-ton loads to the same areas. Delivery prices depend on distance, so the “from”
+          prices on our <a href="/sand-and-stone/">sand and stone page</a> are a starting point — tell us your suburb for an exact
+          price.
+        </p>
+        <h2>Areas we cover</h2>
+        <p>We regularly work in these suburbs and towns. Don’t see yours? Call us — if we can get there, we will.</p>
+        <ul class="!mt-6 grid gap-x-8 sm:grid-cols-2">
+          {areas.map((a) => <li>{a}</li>)}
+        </ul>
+        <h2>Outside the metro?</h2>
+        <p>
+          For larger jobs outside {site.metro} — such as farms, estates and projects along the coast — call {site.phone} to discuss.
+          Travel costs will be quoted up front.
+        </p>
+      </article>
+      <aside class="lg:sticky lg:top-28 lg:self-start">
+        <div class="bg-ink p-8 text-white">
+          <h2 class="caps text-orange">Available in every area</h2>
+          <ul class="mt-4 divide-y divide-white/10">
+            {links.map((l) => (
+              <li><a href={l.href} class="flex min-h-11 items-center justify-between gap-3 py-1.5 text-[16px] hover:text-orange">{l.label}<Icon name="arrow" class="size-4 text-orange" /></a></li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand title="Is your site" italic="on our map?" />
+</BaseLayout>

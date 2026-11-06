@@ -1,0 +1,57 @@
+---
+import IndexPage from '../../components/IndexPage.astro';
+import {machines} from '../../data/machines';
+---
+<IndexPage
+  title="Plant Hire Port Elizabeth | TLB, Skid Steer, Tipper | Titan"
+  description="Plant hire in Port Elizabeth (Gqeberha): JCB TLBs, JCB skid steer, tipper trucks, water tanker, crane truck and flatbed truck. Call Titan on 072 244 1916."
+  eyebrow="Machines & trucks for hire"
+  lines={[{t: 'Plant hire'}, {t: 'the right', i: true}, {t: 'machine, first time'}]}
+  intro="Six types of machine and truck, all owned and maintained by Titan. Tell us the job and we’ll send what finishes it fastest — often more than one machine, booked together."
+  image="tlb-and-skid-steer"
+  section={{label: 'Plant hire', href: '/plant-hire/'}}
+  entries={machines}
+  gridTitle={[{t: 'Choose your'}, {t: 'machine', i: true}]}
+  body={[
+    {
+      h: 'Plant hire in Port Elizabeth, made simple',
+      p: [
+        'Titan Plant Hire supplies earthmoving and transport equipment across Nelson Mandela Bay. Our fleet covers the jobs most homeowners, builders and landscapers need done: digging and trenching with a <a href="/plant-hire/tlb-hire/">JCB 3CX TLB</a>, tight-access loading and levelling with a <a href="/plant-hire/skid-steer-hire/">JCB 135 skid steer</a>, carting with <a href="/plant-hire/tipper-truck-hire/">tipper trucks</a>, dust control with a <a href="/plant-hire/water-tanker-hire/">water tanker</a>, lifting with a <a href="/plant-hire/crane-truck-hire/">crane truck</a> and transport with a <a href="/plant-hire/flatbed-truck-hire/">flatbed truck</a>.',
+        'Because we own the machines and the trucks, we can combine them on one booking. A TLB loads straight into a tipper; a skid steer carries rubble out of a back garden to a waiting truck; the water truck keeps compaction on track. Fewer contractors, fewer delays.',
+      ],
+    },
+    {
+      h: 'Which machine do I need?',
+      list: [
+        '<strong>Digging trenches or foundations?</strong> A TLB is the all-rounder for most residential and light commercial digging.',
+        '<strong>Tight access or mostly loading and levelling?</strong> The skid steer fits through standard gates and works in walled yards.',
+        '<strong>Material leaving or arriving?</strong> Add a tipper truck for rubble, soil, sand and stone.',
+        '<strong>Dusty site or compaction work?</strong> Book the water tanker.',
+        '<strong>Containers or heavy items?</strong> The crane truck lifts, moves and places in one trip.',
+        '<strong>Timber, pallets or equipment?</strong> The flatbed truck carries what a tipper can’t.',
+      ],
+    },
+    {
+      h: 'How booking works',
+      list: [
+        'Call or WhatsApp <a href="tel:+27722441916">072 244 1916</a> with your address and the job',
+        'Send photos or a short video of the site and access if you can',
+        'We recommend the machine(s) and give you a clear quote',
+        'We confirm the date and arrive ready to work',
+      ],
+      p: ['Skid steer hire is from R2800 per day including driver and diesel. For other machines, call for a quote tailored to your job and location.'],
+    },
+    {
+      h: 'Safety on site',
+      p: [
+        'Before any digging, find out where underground services such as water pipes, electrical cables, fibre and sewer lines run. Keep children, pets and bystanders well clear of working machines, and point out any hazards — overhead wires, soft ground, septic tanks or steep slopes — before work starts.',
+      ],
+    },
+  ]}
+  faqs={[
+    {q: 'What plant hire do you offer in Port Elizabeth?', a: 'JCB 3CX TLBs, a JCB 135 skid steer, tipper trucks, a water tanker, a crane truck and a flatbed truck.'},
+    {q: 'Can I hire more than one machine for a job?', a: 'Yes, and it often saves money. A TLB with a tipper truck, or a skid steer with a tipper, is a common combination.'},
+    {q: 'How much is skid steer hire?', a: 'From R2800 per day, including driver and diesel.'},
+    {q: 'Do you hire to homeowners?', a: 'Yes. Most of our work is for homeowners, builders and landscapers. No job is too small to ask about.'},
+  ]}
+/>

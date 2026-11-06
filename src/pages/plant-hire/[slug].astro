@@ -1,0 +1,10 @@
+---
+import DetailPage from '../../components/DetailPage.astro';
+import {machines} from '../../data/machines';
+
+export function getStaticPaths() {
+  return machines.map((entry) => ({params: {slug: entry.slug}, props: {entry}}));
+}
+const {entry} = Astro.props;
+---
+<DetailPage entry={entry} section={{label: 'Plant hire', href: '/plant-hire/'}} category="Plant hire" />

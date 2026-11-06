@@ -1,0 +1,56 @@
+---
+import IndexPage from '../../components/IndexPage.astro';
+import {materials} from '../../data/materials';
+---
+<IndexPage
+  title="Sand & Stone Delivery Port Elizabeth | From R1100 | Titan"
+  description="Building sand from R1100 and 13mm/19mm crusher stone from R1350 per 7 ton load, plus grit — delivered across Port Elizabeth by Titan Plant Hire. 072 244 1916."
+  eyebrow="7 ton loads, delivered"
+  lines={[{t: 'Sand, stone'}, {t: '& grit', i: true}, {t: 'tipped on site'}]}
+  intro="Building sand, crusher stone and grit delivered in 7-ton loads by our own tipper trucks — on time, tipped where you want it, anywhere in Nelson Mandela Bay."
+  image="tipper-truck-stone-delivery"
+  section={{label: 'Sand & stone', href: '/sand-and-stone/'}}
+  entries={materials}
+  gridTitle={[{t: 'Order your'}, {t: 'load', i: true}]}
+  body={[
+    {
+      h: 'Sand and stone delivery in Port Elizabeth',
+      p: [
+        'Every building project starts with materials on site. Titan delivers <a href="/sand-and-stone/building-sand/">building sand</a> (from R1100 per 7 tons), <a href="/sand-and-stone/crusher-stone/">13mm and 19mm crusher stone</a> (from R1350 per 7 tons) and <a href="/sand-and-stone/grit/">grit</a> across Gqeberha and surrounds. Prices are “from” prices; the final price depends on your delivery address.',
+        'We deliver with our own tipper trucks, so you deal with one company from order to tip — and if you need the material spread or moved, our skid steer can come along on the same day.',
+      ],
+    },
+    {
+      h: 'Quick guide: what do I need?',
+      list: [
+        '<strong>Brickwork and mortar:</strong> building sand',
+        '<strong>Concrete for foundations and slabs:</strong> building sand plus 19mm crusher stone, with cement',
+        '<strong>Thinner concrete and drainage layers:</strong> 13mm crusher stone',
+        '<strong>French drains and soakaways:</strong> 19mm crusher stone',
+        '<strong>Paving bedding and levelling:</strong> grit',
+      ],
+      p: ['For structural work, always follow your engineer’s specification for materials and mixes.'],
+    },
+    {
+      h: 'How much is 7 tons?',
+      p: [
+        'A 7-ton load of building sand is roughly 4 to 5 cubic metres; stone is a little denser, so 7 tons is slightly less volume. Tell us what you are building and we will help you estimate the number of loads so you don’t pay for more than you need.',
+      ],
+    },
+    {
+      h: 'Preparing for delivery',
+      list: [
+        'Choose a firm, flat tipping spot close to where the material will be used',
+        'Make sure a large truck can reverse in and has room to lift its bin',
+        'Check for overhead wires and low branches above the tipping spot',
+        'Protect new paving with boards or a tarp if you can',
+      ],
+    },
+  ]}
+  faqs={[
+    {q: 'How much does a load of building sand cost?', a: 'From R1100 per 7-ton load, depending on your delivery address.'},
+    {q: 'How much does crusher stone cost?', a: 'From R1350 per 7-ton load of 13mm or 19mm crusher stone, depending on your address.'},
+    {q: 'Do you deliver to Kariega and Despatch?', a: 'We deliver across Nelson Mandela Bay. Call with your address to confirm the delivery price.'},
+    {q: 'Can you deliver sand and stone on the same day?', a: 'Yes, we can schedule both for your site. Ask when you book.'},
+  ]}
+/>

@@ -1,0 +1,29 @@
+---
+/** Small inline icon set (Lucide-style strokes, brand glyphs filled). Decorative by default. */
+interface Props {
+  name: 'phone' | 'whatsapp' | 'arrow' | 'check' | 'plus' | 'facebook' | 'pin' | 'clock' | 'quote';
+  class?: string;
+  label?: string;
+}
+const {name, class: cls = 'size-5', label} = Astro.props;
+const a11y = label ? {role: 'img', 'aria-label': label} : {'aria-hidden': 'true'};
+---
+{name === 'whatsapp' || name === 'facebook' ? (
+  <svg class={cls} viewBox="0 0 24 24" fill="currentColor" {...a11y}>
+    {name === 'whatsapp' ? (
+      <path d="M12.04 2a9.9 9.9 0 0 0-8.5 15.01L2 22l5.12-1.5A9.93 9.93 0 1 0 12.04 2Zm0 18.13a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.04.9.9-2.96-.2-.31a8.22 8.22 0 1 1 6.84 3.7Zm4.5-6.15c-.25-.12-1.46-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.79.97-.14.16-.29.18-.54.06a6.73 6.73 0 0 1-3.37-2.94c-.25-.44.25-.41.73-1.36.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.43h-.48a.92.92 0 0 0-.66.31 2.79 2.79 0 0 0-.87 2.07 4.84 4.84 0 0 0 1.02 2.57 11.1 11.1 0 0 0 4.24 3.75c1.58.68 2.2.74 2.99.62.48-.07 1.46-.6 1.67-1.18.2-.58.2-1.08.14-1.18-.06-.1-.23-.17-.48-.3Z" />
+    ) : (
+      <path d="M13.5 21v-7.5h2.53l.38-2.94H13.5V8.69c0-.85.24-1.43 1.46-1.43h1.56V4.63a20.9 20.9 0 0 0-2.27-.12c-2.25 0-3.79 1.37-3.79 3.89v2.17H7.92v2.94h2.54V21h3.04Z" />
+    )}
+  </svg>
+) : (
+  <svg class={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" {...a11y}>
+    {name === 'phone' && <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />}
+    {name === 'arrow' && <path d="M5 12h14M13 6l6 6-6 6" />}
+    {name === 'check' && <path d="M20 6 9 17l-5-5" />}
+    {name === 'plus' && <path d="M12 5v14M5 12h14" />}
+    {name === 'pin' && <><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></>}
+    {name === 'clock' && <><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></>}
+    {name === 'quote' && <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" /><path d="M14 2v6h6M8 13h8M8 17h5" /></>}
+  </svg>
+)}

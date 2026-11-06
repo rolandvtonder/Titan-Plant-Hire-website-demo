@@ -1,0 +1,256 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import FleetPanels from '../components/FleetPanels.astro';
+import Icon from '../components/Icon.astro';
+import Img from '../components/Img.astro';
+import Ticker from '../components/Ticker.astro';
+import {generalFaqs} from '../data/faqs';
+import {machines} from '../data/machines';
+import {materials} from '../data/materials';
+import {services} from '../data/services';
+import {areas, site} from '../data/site';
+import {faqPage} from '../lib/schema';
+
+const hero = [
+  {t: 'Heavy lifting'},
+  {t: 'done right.', i: true},
+  {t: 'Dig, haul &'},
+  {t: 'deliver', i: true},
+];
+
+const pillars = [
+  {
+    n: '01',
+    title: ['Plant', 'hire'],
+    img: 'tlb-and-skid-steer',
+    href: '/plant-hire/',
+    text: 'TLBs, a skid steer, tipper trucks, a water tanker, a crane truck and a flatbed — our own machines, sent out with experienced people.',
+    links: machines.map((m) => ({label: m.name, href: `/plant-hire/${m.slug}/`})),
+  },
+  {
+    n: '02',
+    title: ['Sand &', 'stone'],
+    img: 'tipper-truck-stone-tipping',
+    href: '/sand-and-stone/',
+    text: 'Building sand, 13mm and 19mm crusher stone and grit, delivered in 7-ton loads and tipped right where you need it.',
+    links: materials.map((m) => ({label: m.name, href: `/sand-and-stone/${m.slug}/`})),
+  },
+  {
+    n: '03',
+    title: ['Site', 'clearing'],
+    img: 'tlb-loading-tipper-truck',
+    href: '/site-clearing/',
+    text: 'Overgrown plots, rubble piles and earthworks — cleared, loaded and carted away by one team, usually in one visit.',
+    links: services.map((m) => ({label: m.name, href: `/site-clearing/${m.slug}/`})),
+  },
+];
+
+const reasons = [
+  {h: 'Our own fleet', p: 'The TLBs, skid steer and trucks are ours, kept in our own yard — not subcontracted out to whoever is free.'},
+  {h: 'Machine + truck, one booking', p: 'We load and cart in the same visit, so piles don’t sit on your property waiting for a truck.'},
+  {h: 'Straight pricing', p: 'Published “from” prices and a clear quote before we arrive. Skid steer from R2800/day includes driver and diesel.'},
+  {h: 'Local to the Bay', p: 'Based in Port Elizabeth, working every day across Nelson Mandela Bay — from Walmer to Kariega.'},
+];
+---
+<BaseLayout
+  title="Titan Plant Hire | TLB, Skid Steer & Tipper Hire Port Elizabeth"
+  description="Plant hire in Port Elizabeth (Gqeberha): TLBs, skid steers, tipper trucks and water tankers, plus sand & stone delivery and plot clearing. Call 072 244 1916."
+  image="tlb-jcb-3cx-with-tipper"
+  schema={[faqPage(generalFaqs.slice(0, 5))]}
+>
+  <!-- Hero: the photo drifts; scrolling on blurs, dims and pulls it back. -->
+  <section data-hero class="relative h-svh min-h-[660px] overflow-hidden bg-ink">
+    <div data-hero-stage class="absolute inset-0 origin-center will-change-transform">
+      <div class="absolute inset-0 overflow-hidden">
+        <Img name="tipper-truck-earthworks" eager class="drift h-full w-full object-cover object-[60%_50%]" alt="Titan Plant Hire tipper truck being loaded on an earthworks site in Port Elizabeth" />
+      </div>
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgb(14_14_14/0.8),rgb(14_14_14/0.25)_60%,transparent)]"></div>
+      <div class="absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(0deg,rgb(14_14_14/0.8),transparent)]"></div>
+
+      <div class="absolute inset-0 mx-auto max-w-[1680px] px-5 pt-[clamp(110px,15vh,170px)] md:px-14">
+        <p class="caps mb-6 flex items-center gap-3 text-orange"><span class="h-[3px] w-10 -skew-x-[20deg] bg-orange"></span>Plant hire · {site.city} ({site.cityAlt})</p>
+        <h1 class="display text-[clamp(58px,9.2vw,168px)] text-white drop-shadow-[0_4px_30px_rgb(0_0_0/0.4)]">
+          <span class="sr-only">Titan Plant Hire, Port Elizabeth — </span>
+          {hero.map((l, i) => (
+            <span class:list={['block', {it: l.i, 'md:pl-[1.4em]': i === 0}]}>{l.t}</span>
+          ))}
+        </h1>
+        <p class="caps mt-10 ml-[clamp(0px,21vw,360px)] max-w-[340px] text-[13px] text-white/90 max-md:ml-0">
+          TLBs, skid steers, tipper trucks and water tankers — plus sand &amp; stone deliveries and plot clearing across Nelson Mandela Bay. One call gets the job moving.
+        </p>
+      </div>
+    </div>
+    <a href="#fleet" class="caps absolute bottom-24 left-5 z-10 hidden items-center gap-3 text-white/80 hover:text-orange md:bottom-8 md:left-14 md:flex">
+      <span class="grid size-12 place-items-center border border-white/30">↓</span> Meet the fleet
+    </a>
+  </section>
+
+  <Ticker />
+
+  <!-- Intro -->
+  <section class="on-paper bg-paper text-ink">
+    <div class="mx-auto grid max-w-[1680px] items-center gap-14 px-5 py-24 md:px-14 md:py-32 lg:grid-cols-2">
+      <div>
+        <p class="caps text-rust" data-reveal>Titan Plant Hire</p>
+        <h2 class="display mt-4 text-[clamp(46px,6vw,100px)]" data-reveal style="--d:1">
+          <span class="block">Port Elizabeth’s</span><span class="it block">heavy-duty</span><span class="block">helping hand</span>
+        </h2>
+        <div class="prose-titan mt-8 max-w-[620px]" data-reveal style="--d:2">
+          <p>
+            Titan Plant Hire supplies earthmoving machines, trucks and building materials to homeowners, builders and businesses
+            across {site.city} and {site.metro}. Whether you need a <a href="/plant-hire/tlb-hire/">TLB to dig trenches</a>, a
+            <a href="/plant-hire/skid-steer-hire/">skid steer for a tight back yard</a>, a
+            <a href="/sand-and-stone/building-sand/">7-ton load of building sand</a> or an
+            <a href="/site-clearing/plot-clearing/">overgrown plot cleared</a>, we bring the right machine and get it done.
+          </p>
+          <p>
+            Because the machines and the trucks are ours, we can dig, load and cart in a single visit — saving you time,
+            double-handling and a second contractor.
+          </p>
+        </div>
+        <div class="mt-10 flex flex-wrap gap-3" data-reveal style="--d:3">
+          <a href="/about/" class="caps inline-flex min-h-12 items-center gap-2 bg-ink px-6 text-white hover:bg-rust">About Titan <Icon name="arrow" class="size-4" /></a>
+          <a href={site.phoneHref} class="caps inline-flex min-h-12 items-center gap-2 border-2 border-ink px-6 hover:bg-ink hover:text-white"><Icon name="phone" class="size-4" /> {site.phone}</a>
+        </div>
+      </div>
+      <div class="relative aspect-[4/5] overflow-hidden" data-reveal style="--d:1">
+        <Img name="tlb-jcb-3cx-with-tipper" sizes="(min-width: 1024px) 50vw, 100vw" parallax={0.1} class="h-full w-full object-cover" />
+        <div class="absolute bottom-0 left-0 bg-orange px-6 py-5 text-ink">
+          <p class="display text-[44px]">7 ton</p>
+          <p class="caps">sand &amp; stone loads delivered</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FleetPanels />
+
+  <!-- Three pillars -->
+  <section class="bg-ink py-24 md:py-32">
+    <div class="mx-auto max-w-[1680px] px-5 md:px-14">
+      <h2 class="display text-[clamp(52px,7vw,120px)]" data-reveal><span class="block">What we</span><span class="it block">do best</span></h2>
+      <div class="mt-16 space-y-[3px]">
+        {pillars.map((p, i) => (
+          <article class="group grid overflow-hidden bg-asphalt lg:grid-cols-[1.1fr_1fr]" data-reveal>
+            <a href={p.href} class:list={['relative block aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[480px]', {'lg:order-2': i % 2 === 1}]} tabindex="-1" aria-hidden="true">
+              <Img name={p.img} alt="" sizes="(min-width: 1024px) 55vw, 100vw" class="h-full w-full object-cover transition-transform duration-[1.2s] ease-silk group-hover:scale-105" />
+            </a>
+            <div class="flex flex-col justify-center p-8 md:p-14">
+              <p class="caps text-orange">{p.n}</p>
+              <h3 class="display mt-3 text-[clamp(48px,5vw,84px)]"><a href={p.href} class="hover:text-orange">{p.title[0]} <span class="it">{p.title[1]}</span></a></h3>
+              <p class="mt-5 max-w-lg text-white/75">{p.text}</p>
+              <ul class="mt-8 flex flex-wrap gap-2">
+                {p.links.map((l) => (
+                  <li><a href={l.href} class="inline-flex min-h-10 items-center border border-white/20 px-4 text-[15px] text-white/85 hover:border-orange hover:text-orange">{l.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Before / after -->
+  <section class="on-paper bg-concrete text-ink">
+    <div class="mx-auto grid max-w-[1680px] items-center gap-14 px-5 py-24 md:px-14 md:py-32 lg:grid-cols-[1fr_1.4fr]">
+      <div>
+        <p class="caps text-rust" data-reveal>Drag to compare</p>
+        <h2 class="display mt-4 text-[clamp(46px,6vw,100px)]" data-reveal style="--d:1"><span class="block">Before</span><span class="it block">&amp; after</span></h2>
+        <p class="mt-6 max-w-md text-[18px] text-ink/80" data-reveal style="--d:2">
+          A rubble-strewn verge in Port Elizabeth, cleared by Titan with a TLB and tipper truck. Same spot, same angle —
+          slide the handle to see the difference.
+        </p>
+        <a href="/site-clearing/plot-clearing/" class="caps mt-8 inline-flex min-h-12 items-center gap-2 bg-ink px-6 text-white hover:bg-rust" data-reveal style="--d:3">Plot clearing <Icon name="arrow" class="size-4" /></a>
+      </div>
+      <div data-reveal style="--d:1">
+        <BeforeAfter before="site-clearing-before" after="site-clearing-after" label="Slide to compare the verge before and after clearing" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Materials -->
+  <section class="bg-ink py-24 md:py-32">
+    <div class="mx-auto max-w-[1680px] px-5 md:px-14">
+      <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <h2 class="display text-[clamp(52px,7vw,120px)]" data-reveal><span class="block">Sand, stone</span><span class="it block">&amp; grit</span></h2>
+        <p class="max-w-md text-white/75" data-reveal style="--d:1">Delivered in 7-ton loads by our own tipper trucks. Prices are “from” and depend on your address.</p>
+      </div>
+      <div class="mt-14 grid gap-[3px] md:grid-cols-3">
+        {materials.map((m, i) => (
+          <a href={`/sand-and-stone/${m.slug}/`} class="group relative flex min-h-[420px] flex-col justify-end overflow-hidden p-8" data-reveal style={`--d:${i}`}>
+            <Img name={m.hero} alt="" sizes="(min-width: 768px) 33vw, 100vw" class="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] ease-silk group-hover:scale-105" />
+            <div class="absolute inset-0 bg-[linear-gradient(0deg,rgb(14_14_14/0.92),rgb(14_14_14/0.2))]"></div>
+            <div class="relative">
+              <h3 class="display text-[48px]">{m.name}</h3>
+              <p class="display it mt-1 text-[36px]">{m.price ? `From R${m.price.from}` : 'Call for price'}</p>
+              <p class="mt-3 text-white/75">{m.card}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Titan -->
+  <section class="border-t border-white/10 bg-asphalt">
+    <div class="mx-auto max-w-[1680px] px-5 py-24 md:px-14 md:py-32">
+      <h2 class="display text-[clamp(52px,7vw,120px)]" data-reveal><span class="block">Why</span><span class="it block">Titan</span></h2>
+      <ol class="mt-14 grid gap-[3px] md:grid-cols-2 xl:grid-cols-4">
+        {reasons.map((r, i) => (
+          <li class="bg-ink p-8 md:p-10" data-reveal style={`--d:${i}`}>
+            <span class="display text-[64px] text-orange">0{i + 1}</span>
+            <h3 class="mt-4 text-[22px] font-bold">{r.h}</h3>
+            <p class="mt-3 text-white/70">{r.p}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Motorsport teaser -->
+  <section class="relative overflow-hidden bg-ink">
+    <div class="absolute inset-0 overflow-hidden">
+      <Img name="titan-race-car" alt="" parallax={0.12} class="h-full w-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,rgb(14_14_14/0.88),rgb(14_14_14/0.2))]"></div>
+    <div class="relative mx-auto max-w-[1680px] px-5 py-32 md:px-14 md:py-44">
+      <p class="caps text-orange" data-reveal>Off the clock</p>
+      <h2 class="display mt-4 text-[clamp(56px,8vw,140px)]" data-reveal style="--d:1"><span class="block">Built</span><span class="it block">to race</span></h2>
+      <p class="mt-6 max-w-md text-[18px] text-white/85" data-reveal style="--d:2">The Titan Plant Hire car carries our colours on the dirt oval — the same grit we bring to every site.</p>
+      <a href="/motorsport/" class="caps mt-8 inline-flex min-h-12 items-center gap-2 bg-white px-6 text-ink hover:bg-orange" data-reveal style="--d:3">Titan motorsport <Icon name="arrow" class="size-4" /></a>
+    </div>
+  </section>
+
+  <!-- Areas -->
+  <section class="on-paper bg-paper text-ink">
+    <div class="mx-auto grid max-w-[1680px] gap-12 px-5 py-24 md:px-14 md:py-32 lg:grid-cols-[1fr_1.6fr]">
+      <div>
+        <h2 class="display text-[clamp(46px,6vw,100px)]" data-reveal><span class="block">Across</span><span class="it block">the Bay</span></h2>
+        <p class="mt-6 max-w-md text-[18px] text-ink/80" data-reveal style="--d:1">
+          We work throughout {site.city} ({site.cityAlt}) and {site.metro}. Not sure if we reach you? Ask — we’ll tell you straight.
+        </p>
+        <a href="/service-areas/" class="caps mt-8 inline-flex min-h-12 items-center gap-2 bg-ink px-6 text-white hover:bg-rust" data-reveal style="--d:2">Service areas <Icon name="arrow" class="size-4" /></a>
+      </div>
+      <ul class="flex flex-wrap content-start gap-2" data-reveal style="--d:1">
+        {areas.map((a) => <li class="border border-ink/15 bg-white px-4 py-2 text-[15px]"><Icon name="pin" class="mr-1.5 inline size-4 text-rust" />{a}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-ink">
+    <div class="mx-auto grid max-w-[1680px] gap-12 px-5 py-24 md:px-14 md:py-32 lg:grid-cols-[1fr_2fr]">
+      <div>
+        <h2 class="display text-[clamp(46px,6vw,100px)]" data-reveal><span class="block">Good</span><span class="it block">questions</span></h2>
+        <a href="/faq/" class="caps mt-8 inline-flex items-center gap-2 text-orange hover:text-white" data-reveal>All FAQs <Icon name="arrow" class="size-4" /></a>
+      </div>
+      <Faq faqs={generalFaqs.slice(0, 5)} dark />
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

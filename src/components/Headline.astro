@@ -1,0 +1,16 @@
+---
+import type {Line} from '../data/types';
+/** Big display headline; italic lines come from the data, not the markup. */
+interface Props {
+  lines: Line[];
+  as?: 'h1' | 'h2' | 'h3';
+  class?: string;
+  indentFirst?: boolean;
+}
+const {lines, as: Tag = 'h2', class: cls = '', indentFirst = false} = Astro.props;
+---
+<Tag class={`display ${cls}`}>
+  {lines.map((l, i) => (
+    <span class:list={['block', {it: l.i, 'pl-[1.2em]': indentFirst && i === 0}]}>{l.t}</span>
+  ))}
+</Tag>

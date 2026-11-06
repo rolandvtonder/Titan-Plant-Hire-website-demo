@@ -1,0 +1,23 @@
+---
+/**
+ * The Titan Plant Hire wordmark, rebuilt as SVG from the signage: wide
+ * heavy italic "TITAN" in white with an orange then black outline, and
+ * "PLANT HIRE" in orange beneath. textLength pins the layout so it looks
+ * right even before the web font arrives.
+ * TODO: swap for the original logo file when available.
+ */
+interface Props {
+  class?: string;
+  title?: string;
+}
+const {class: cls = '', title = 'Titan Plant Hire'} = Astro.props;
+const font = "font-family:Archivo,'Arial Black',sans-serif;font-weight:900;font-style:italic;font-stretch:125%;";
+---
+<svg class={cls} viewBox="0 0 330 122" role="img" aria-label={title} xmlns="http://www.w3.org/2000/svg">
+  <title>{title}</title>
+  <g style={font}>
+    <text x="12" y="74" font-size="82" textLength="306" lengthAdjust="spacingAndGlyphs" fill="#0e0e0e" stroke="#0e0e0e" stroke-width="16" stroke-linejoin="round">TITAN</text>
+    <text x="12" y="74" font-size="82" textLength="306" lengthAdjust="spacingAndGlyphs" fill="#fff" stroke="#f37021" stroke-width="7" stroke-linejoin="round" paint-order="stroke">TITAN</text>
+    <text x="24" y="112" font-size="32" textLength="288" lengthAdjust="spacingAndGlyphs" fill="#f37021" stroke="#0e0e0e" stroke-width="7" stroke-linejoin="round" paint-order="stroke">PLANT HIRE</text>
+  </g>
+</svg>

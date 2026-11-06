@@ -1,0 +1,22 @@
+---
+import {getImage} from 'astro:assets';
+import {alt, photo} from '../data/photos';
+import Img from './Img.astro';
+/** Photo grid; each tile opens a larger copy in the lightbox (see main.ts). */
+interface Props {
+  names: string[];
+  feature?: boolean;
+}
+const {names, feature = true} = Astro.props;
+const large = await Promise.all(names.map((n) => getImage({src: photo(n), width: Math.min(1920, photo(n).width), format: 'webp'})));
+---
+<ul class="grid grid-cols-2 gap-[3px] md:grid-cols-3">
+  {names.map((n, i) => (
+    <li class:list={['relative overflow-hidden bg-steel', {'col-span-2 row-span-2': feature && i === 0}]} data-reveal style={`--d:${i % 3}`}>
+      <a href={large[i].src} data-lightbox data-caption={alt(n)} class="group block h-full">
+        <Img name={n} sizes={feature && i === 0 ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 50vw'} class="aspect-[4/3] h-full w-full object-cover transition-transform duration-700 ease-silk group-hover:scale-105" />
+        <span class="sr-only">Open larger photo</span>
+      </a>
+    </li>
+  ))}
+</ul>

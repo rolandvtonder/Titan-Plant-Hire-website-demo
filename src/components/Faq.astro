@@ -1,0 +1,23 @@
+---
+import type {Faq} from '../data/types';
+import Icon from './Icon.astro';
+/** Native <details> accordion — works with keyboard and without JS. */
+interface Props {
+  faqs: Faq[];
+  dark?: boolean;
+}
+const {faqs, dark = false} = Astro.props;
+---
+<div class:list={['divide-y border-y', dark ? 'divide-white/15 border-white/15' : 'divide-ink/15 border-ink/15']}>
+  {faqs.map((f, i) => (
+    <details data-reveal style={`--d:${i % 4}`}>
+      <summary class="flex min-h-16 items-center justify-between gap-6 py-5">
+        <h3 class:list={['text-[19px] font-semibold md:text-[21px]', dark ? 'text-white' : 'text-ink']}>{f.q}</h3>
+        <span class:list={['faq-plus grid size-10 shrink-0 place-items-center transition-transform duration-300', dark ? 'bg-white/10 text-orange' : 'bg-ink text-white']}>
+          <Icon name="plus" class="size-4" />
+        </span>
+      </summary>
+      <p class:list={['max-w-3xl pb-6 text-[17px] leading-relaxed', dark ? 'text-white/75' : 'text-ink/75']}>{f.a}</p>
+    </details>
+  ))}
+</div>

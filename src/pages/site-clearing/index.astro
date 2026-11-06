@@ -1,0 +1,55 @@
+---
+import IndexPage from '../../components/IndexPage.astro';
+import {services} from '../../data/services';
+---
+<IndexPage
+  title="Site Clearing Port Elizabeth | Plots, Rubble & Earthworks | Titan"
+  description="Plot clearing, rubble removal, earthworks and road clean-ups in Port Elizabeth. TLBs, skid steer and tippers on one booking. Titan Plant Hire — 072 244 1916."
+  eyebrow="Clear, load & cart away"
+  lines={[{t: 'Site clearing'}, {t: 'start clean', i: true}, {t: 'build faster'}]}
+  intro="From bush-covered plots to rubble piles and spilled loads, we clear it, load it and cart it away with our own machines and trucks — leaving you a clean site, ready for what’s next."
+  image="tlb-jcb-3cx-with-tipper"
+  section={{label: 'Site clearing', href: '/site-clearing/'}}
+  entries={services}
+  gridTitle={[{t: 'What we'}, {t: 'clear', i: true}]}
+  body={[
+    {
+      h: 'Site clearing in Port Elizabeth',
+      p: [
+        'Titan clears sites of every size across Nelson Mandela Bay — <a href="/site-clearing/plot-clearing/">overgrown residential plots</a>, <a href="/site-clearing/rubble-removal/">building rubble</a>, <a href="/site-clearing/earthworks-and-levelling/">earthworks and levelling</a> and <a href="/site-clearing/road-spill-cleanup/">spills on roads</a>. We use JCB TLBs and a JCB skid steer to clear and load, and our own tipper trucks to remove the material.',
+        'Running the machines and trucks ourselves means we can clear and cart in one visit. That keeps costs down and stops piles sitting on site for days.',
+      ],
+    },
+    {
+      h: 'Why clear with machines?',
+      list: [
+        'Much faster than hand clearing — most residential plots are done in a day',
+        'Roots, rubble and dumped material are lifted and loaded, not just cut back',
+        'The ground is scraped neat, ready for survey, set-out and digging',
+        'Everything is loaded and carted away in our tippers',
+      ],
+    },
+    {
+      h: 'What to send us for a quote',
+      list: [
+        'Your plot or property address',
+        'A few photos from different angles, plus the access point',
+        'What you want removed, and anything that must stay (trees, walls, plants)',
+        'When you need it done',
+      ],
+      p: ['WhatsApp it all to <a href="https://wa.me/27722441916">072 244 1916</a> and we’ll come back with a price.'],
+    },
+    {
+      h: 'Responsible clearing',
+      p: [
+        'Some indigenous trees and vegetation in the Eastern Cape are protected, and many estates have their own rules about clearing. Check with your estate or the municipality before removing large trees. Hazardous materials such as asbestos need specialised removal — tell us if you suspect any.',
+      ],
+    },
+  ]}
+  faqs={[
+    {q: 'How much does plot clearing cost?', a: 'It depends on the plot size, the vegetation and how much needs carting away. Send photos on WhatsApp for a quick quote.'},
+    {q: 'Do you take the rubble away?', a: 'Yes. We load it into our own tipper trucks and remove it.'},
+    {q: 'Can you clear a back garden with tight access?', a: 'Yes. Our JCB skid steer fits through most gates and side passages.'},
+    {q: 'Do you do municipal or commercial clearing?', a: 'Yes — including verges, road reserves and spilled loads on roads. Call us to discuss.'},
+  ]}
+/>

@@ -1,0 +1,18 @@
+---
+/** Scrolling service ticker; pauses on hover and stops for reduced motion. */
+const items = ['TLB hire', 'Skid steer hire', 'Tipper trucks', 'Water tanker', 'Crane truck', 'Building sand', 'Crusher stone', 'Grit', 'Plot clearing', 'Rubble removal', 'Earthworks'];
+---
+<div class="ticker overflow-hidden border-y border-white/10 bg-ink py-5">
+  <div class="ticker-track flex w-max">
+    {[0, 1].map((n) => (
+      <ul class="flex shrink-0 items-center" aria-hidden={n === 1 ? 'true' : undefined} aria-label={n === 0 ? 'Our services' : undefined}>
+        {items.map((t) => (
+          <li class="display flex items-center text-[34px] text-white md:text-[44px]">
+            <span class="px-6">{t}</span>
+            <span class="h-[6px] w-8 -skew-x-[20deg] bg-orange" aria-hidden="true"></span>
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</div>

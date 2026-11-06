@@ -1,0 +1,74 @@
+---
+import {machines} from '../data/machines';
+import {materials} from '../data/materials';
+import {services} from '../data/services';
+import {site} from '../data/site';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+const cols = [
+  {h: 'Plant hire', href: '/plant-hire/', links: machines.map((m) => ({label: m.name, href: `/plant-hire/${m.slug}/`}))},
+  {h: 'Sand & stone', href: '/sand-and-stone/', links: materials.map((m) => ({label: m.name, href: `/sand-and-stone/${m.slug}/`}))},
+  {h: 'Site clearing', href: '/site-clearing/', links: services.map((m) => ({label: m.name, href: `/site-clearing/${m.slug}/`}))},
+  {
+    h: 'Titan',
+    href: '/about/',
+    links: [
+      {label: 'About us', href: '/about/'},
+      {label: 'Gallery', href: '/gallery/'},
+      {label: 'Motorsport', href: '/motorsport/'},
+      {label: 'Service areas', href: '/service-areas/'},
+      {label: 'FAQ', href: '/faq/'},
+      {label: 'Contact & quotes', href: '/contact/'},
+    ],
+  },
+];
+---
+<footer class="relative bg-ink text-white">
+  <div class="hazard" aria-hidden="true"></div>
+  <div class="mx-auto max-w-[1680px] px-5 pt-16 pb-28 md:px-14 md:pb-16">
+    <div class="grid gap-12 lg:grid-cols-[1.1fr_2fr]">
+      <div>
+        <Logo class="w-[220px]" />
+        <p class="mt-6 max-w-sm text-white/70">
+          Plant hire, sand and stone deliveries, and site clearing in {site.city} ({site.cityAlt}) and across {site.metro}.
+        </p>
+        <div class="mt-8 space-y-3">
+          <a href={site.phoneHref} class="display flex items-center gap-3 text-[40px] hover:text-orange">
+            <Icon name="phone" class="size-7 text-orange" />
+            {site.phone}
+          </a>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a href={site.whatsappHref} target="_blank" rel="noopener" class="caps inline-flex min-h-12 items-center gap-2 bg-orange px-5 text-ink hover:bg-white">
+              <Icon name="whatsapp" class="size-4" /> WhatsApp us
+            </a>
+            <a href={site.facebook} target="_blank" rel="noopener" class="caps inline-flex min-h-12 items-center gap-2 border border-white/30 px-5 hover:border-orange hover:text-orange">
+              <Icon name="facebook" class="size-4" /> Facebook
+            </a>
+          </div>
+          {site.email && <a href={`mailto:${site.email}`} class="block text-white/70 hover:text-orange">{site.email}</a>}
+        </div>
+      </div>
+      <nav class="grid grid-cols-2 gap-10 md:grid-cols-4" aria-label="Footer">
+        {cols.map((c) => (
+          <div>
+            <a href={c.href} class="caps text-orange hover:text-white">{c.h}</a>
+            <ul class="mt-4 space-y-2.5">
+              {c.links.map((l) => (
+                <li><a href={l.href} class="text-[15px] text-white/75 hover:text-white">{l.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </nav>
+    </div>
+
+    <div class="mt-20 overflow-hidden" aria-hidden="true">
+      <span data-fit class="display inline-block whitespace-nowrap leading-[0.82] text-white/[0.09]">Titan Plant Hire</span>
+    </div>
+    <div class="mt-6 flex flex-col gap-2 border-t border-white/10 pt-6 text-[13px] text-white/50 md:flex-row md:justify-between">
+      <p>© {new Date().getFullYear()} {site.name}. {site.city}, {site.region}, South Africa.</p>
+      <p>Prices shown are “from” prices and may change — always confirm when booking.</p>
+    </div>
+  </div>
+</footer>

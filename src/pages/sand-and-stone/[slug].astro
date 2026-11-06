@@ -1,0 +1,10 @@
+---
+import DetailPage from '../../components/DetailPage.astro';
+import {materials} from '../../data/materials';
+
+export function getStaticPaths() {
+  return materials.map((entry) => ({params: {slug: entry.slug}, props: {entry}}));
+}
+const {entry} = Astro.props;
+---
+<DetailPage entry={entry} section={{label: 'Sand & stone', href: '/sand-and-stone/'}} category="Building material delivery" />

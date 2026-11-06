@@ -1,0 +1,32 @@
+---
+/**
+ * Responsive photo by name. Only asks for widths up to the original size so
+ * small Facebook photos are never upscaled.
+ */
+import {Image} from 'astro:assets';
+import {alt as altFor, photo} from '../data/photos';
+
+interface Props {
+  name: string;
+  alt?: string;
+  sizes?: string;
+  class?: string;
+  eager?: boolean;
+  parallax?: number;
+}
+const {name, alt, sizes = '100vw', class: cls = '', eager = false, parallax} = Astro.props;
+const src = photo(name);
+const widths = [480, 768, 1024, 1440, 1920].filter((w) => w < src.width).concat(src.width);
+---
+<Image
+  src={src}
+  alt={alt ?? altFor(name)}
+  widths={widths}
+  sizes={sizes}
+  quality={72}
+  class={cls}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : 'auto'}
+  decoding={eager ? 'sync' : 'async'}
+  data-parallax={parallax}
+/>

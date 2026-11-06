@@ -1,0 +1,63 @@
+---
+import {machines} from '../data/machines';
+import {materials} from '../data/materials';
+import {services} from '../data/services';
+import {site} from '../data/site';
+import Icon from './Icon.astro';
+
+/**
+ * Quote request that needs no server: on submit, main.ts checks the fields
+ * and opens WhatsApp to the office number with the details filled in.
+ */
+const groups = [
+  {label: 'Plant hire', items: machines.map((m) => m.name)},
+  {label: 'Sand & stone', items: materials.map((m) => `${m.name} delivery`)},
+  {label: 'Site clearing', items: services.map((m) => m.name)},
+];
+const field = 'mt-2 block min-h-12 w-full border-2 border-ink/20 bg-white px-4 py-3 text-[17px] text-ink outline-none transition-colors focus:border-ink aria-[invalid=true]:border-red-700';
+const label = 'caps text-ink';
+---
+<form data-quote-form data-whatsapp={site.whatsapp} novalidate class="grid gap-6 sm:grid-cols-2">
+  <div>
+    <label for="q-name" class={label}>Your name <span class="text-rust" aria-hidden="true">*</span></label>
+    <input id="q-name" name="name" type="text" autocomplete="name" required aria-describedby="q-name-err" class={field} />
+    <p id="q-name-err" data-error-for="name" class="mt-2 text-[15px] text-red-700" hidden>Please enter your name.</p>
+  </div>
+  <div>
+    <label for="q-phone" class={label}>Phone number <span class="text-rust" aria-hidden="true">*</span></label>
+    <input id="q-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9 +()\-]{9,}" aria-describedby="q-phone-err" class={field} />
+    <p id="q-phone-err" data-error-for="phone" class="mt-2 text-[15px] text-red-700" hidden>Please enter a phone number we can call you on, e.g. 072 123 4567.</p>
+  </div>
+  <div>
+    <label for="q-service" class={label}>What do you need? <span class="text-rust" aria-hidden="true">*</span></label>
+    <select id="q-service" name="service" required aria-describedby="q-service-err" class={field}>
+      <option value="">Choose a service…</option>
+      {groups.map((g) => (
+        <optgroup label={g.label}>
+          {g.items.map((i) => <option>{i}</option>)}
+        </optgroup>
+      ))}
+      <option>Not sure — please advise</option>
+    </select>
+    <p id="q-service-err" data-error-for="service" class="mt-2 text-[15px] text-red-700" hidden>Please choose a service, or “Not sure”.</p>
+  </div>
+  <div>
+    <label for="q-suburb" class={label}>Area / suburb</label>
+    <input id="q-suburb" name="suburb" type="text" autocomplete="address-level3" placeholder="e.g. Walmer" class={field} />
+  </div>
+  <div>
+    <label for="q-date" class={label}>When do you need it?</label>
+    <input id="q-date" name="date" type="date" class={field} />
+  </div>
+  <div class="sm:col-span-2">
+    <label for="q-details" class={label}>Job details</label>
+    <textarea id="q-details" name="details" rows="4" placeholder="What needs doing, how much, access, anything we should know…" class={field}></textarea>
+    <p class="mt-2 text-[15px] text-ink/65">Tip: after sending, attach a few photos of the site in the same WhatsApp chat.</p>
+  </div>
+  <div class="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center">
+    <button type="submit" class="caps inline-flex min-h-14 items-center justify-center gap-2 bg-ink px-8 text-white transition-colors hover:bg-rust">
+      <Icon name="whatsapp" class="size-5" /> Send via WhatsApp
+    </button>
+    <p data-form-status role="status" aria-live="polite" class="text-[15px] font-medium text-ink"></p>
+  </div>
+</form>
